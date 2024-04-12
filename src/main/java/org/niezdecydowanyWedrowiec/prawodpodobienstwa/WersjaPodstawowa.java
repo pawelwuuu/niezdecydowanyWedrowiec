@@ -1,10 +1,10 @@
-package org.niezdecydowanyWedrowiec;
+package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class BasicProbability {
+class WersjaPodstawowa {
     public static int obecnie;
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy wejscie
@@ -32,13 +32,13 @@ class BasicProbability {
     public static boolean czyWyjdzie(Random random)
     {
         for(int i = 0; i < skrzyrzowania[0].length; i++) {  //ustala miejsce startu
-            if(skrzyrzowania[2][i] != false)
+            if(skrzyrzowania[2][i])
                 obecnie = i+1;
         }
 
         do {
             int i = wyburDrogi(random);                                                                 //losuje nową droge
-            if(MonteCarloSimulation.simulate(drogi[obecnie-1][i - 1],1,1) != 0.0) {        //próbuje przez nią przejść
+            if(SymulacjaMonteCarlo.symuluj(drogi[obecnie - 1][i - 1], 1, 1) != 0.0) {        //próbuje przez nią przejść
                 obecnie = i;                                                                            //jeżeli przejdzie ustala nowe miejsce wedrowcy
             }
         }while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1]));
