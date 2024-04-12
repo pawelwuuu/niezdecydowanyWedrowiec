@@ -3,7 +3,7 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 import java.util.ArrayList;
 
 public class WersjaUproszczona {
-    public static ArrayList<Double> obliczPrawdopodobieństwaMiejsc(int n, int s) {
+    public static ArrayList<Double> obliczPrawdopodobienstwaMiejsc(int s, int n) {
         int szerokoscMacierzy = 1 + n + s;
         double[][] macierz = new double[szerokoscMacierzy][szerokoscMacierzy];
         double[] wynikMacierzy = new double[szerokoscMacierzy];

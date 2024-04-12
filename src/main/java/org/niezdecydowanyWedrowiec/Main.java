@@ -1,17 +1,16 @@
 package org.niezdecydowanyWedrowiec;
 
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
+import org.niezdecydowanyWedrowiec.prawodpodobienstwa.SymulacjaMonteCarlo;
+import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaUproszczona;
 
 public class Main {
     public static void main(String[] args) {
 
 
 
-//        System.out.println(SimplifiedProbability.calculatePlacesProbabilities(3,4));
-//        System.out.println(MonteCarloSimulation.simulate(4,3,100)); // to jest dobrze ;)
+        System.out.println(WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(4,3));
+        System.out.println(SymulacjaMonteCarlo.symuluj(4,3,100000)); // to jest dobrze ;)
 
-        MacierzRzadka macierzRzadka = new MacierzRzadka(3);
-
-        macierzRzadka.ustawWartosc(1,2,10.5);
     }
 }
