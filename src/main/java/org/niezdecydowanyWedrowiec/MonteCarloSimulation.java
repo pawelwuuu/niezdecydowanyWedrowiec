@@ -1,4 +1,4 @@
-package org.example;
+package org.niezdecydowanyWedrowiec;
 
 import java.util.Random;
 

@@ -1,7 +1,6 @@
-package org.example;
+package org.niezdecydowanyWedrowiec;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SimplifiedProbability {
     public static ArrayList<Double> calculatePlacesProbabilities(int n, int s) {

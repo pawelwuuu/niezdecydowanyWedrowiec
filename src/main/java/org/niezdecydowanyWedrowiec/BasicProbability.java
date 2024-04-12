@@ -1,11 +1,10 @@
-package org.example;
+package org.niezdecydowanyWedrowiec;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 
-public class Podstawowa {
+class BasicProbability {
     public static int obecnie;
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy wejscie
