@@ -1,10 +1,10 @@
-package org.example;
+package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class matrix {
+public class WersjaPodstawowaMacierz {
     public static int obecnie;
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy studzienka
@@ -14,25 +14,25 @@ public class matrix {
                                                 */
     public static int[][] drogi;    //czas drogi między m i n skrzyrzowaniem
 
-    public static double[][]macierz;
+    public static Double[][]macierz;
 
-    public static double[][] macierzPodstawowa() {
-        czytajDaneZPliku("src\\main\\java\\org\\example\\park.txt");
+    public static Double[][] macierzPodstawowa() {
+        czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
 
-        macierz = new double[skrzyrzowania[0].length][skrzyrzowania.length];
+        macierz = new Double[skrzyrzowania[0].length][skrzyrzowania.length];
 
         for (int j = 0; j < macierz.length; j++) {
             boolean niePusty = false;
             for (int i = 0; i < macierz[j].length; i++) {
                 if(i == j)
-                    macierz[j][i] = 1;          //Wypełnia skos 1
+                    macierz[j][i] = 1.0;          //Wypełnia skos 1
                 else
                 {
                     if(skrzyrzowania[0][j] || skrzyrzowania[1][j])
-                        macierz[i][j] = 0;          //jeżeli jest studzienka albo wyjście wpisuje 0
+                        macierz[i][j] = (double) 0;          //jeżeli jest studzienka albo wyjście wpisuje 0
                     else
                     {
-                        macierz[i][j] = SimplifiedProbability.calculatePlacesProbabilities(1,drogi[i][j]).get(drogi[i][j]); //wpisuje szanse przejścia przez alejke
+                        macierz[i][j] = WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1,drogi[i][j]).get(drogi[i][j]); //wpisuje szanse przejścia przez alejke
                         niePusty = true;
                     }
                 }
@@ -47,6 +47,9 @@ public class matrix {
             }
             System.out.println();
         }
+
+
+
         return macierz;
     }
     public static void poprawDane(int j)
