@@ -108,9 +108,13 @@ public class MacierzRzadka {
         return wartosciKolumnyZeZerami;
     }
 
-    public void wyswietlMacierz() {
+    @Override
+    public String toString() {
+        String macierzStr = "";
         for (int i = 0; i < rozmiarMacierzy; i++) {
-            System.out.println(pobierzWiersz(i));
+            macierzStr += pobierzWiersz(i) + "\n";
         }
+
+        return macierzStr;
     }
 }
