@@ -6,9 +6,21 @@ import java.util.Objects;
 
 public class MacierzRzadka {
     int rozmiarMacierzy;
+    private final LinkedHashMap<Para, Double> macierzRzadka = new LinkedHashMap<>();
 
     public MacierzRzadka(int rozmiarMacierzy) {
         this.rozmiarMacierzy = rozmiarMacierzy;
+    }
+
+    public MacierzRzadka(Double[][] macierzZwykla) {
+        rozmiarMacierzy = macierzZwykla.length;
+        for (int i = 0; i < rozmiarMacierzy; i++) {
+            for (int j = 0; j < rozmiarMacierzy; j++) {
+                if (macierzZwykla[i][j] != 0) {
+                    ustawWartosc(i,j, macierzZwykla[i][j]);
+                }
+            }
+        }
     }
 
     private class Para {
@@ -34,11 +46,9 @@ public class MacierzRzadka {
         }
     }
 
-    private final LinkedHashMap<Para, Double> rzadkaMacierz = new LinkedHashMap<>();
-
     public boolean czyUstawione(int wiersz, int kolumna) {
         Para para = new Para(wiersz, kolumna);
-        return rzadkaMacierz.containsKey(para);
+        return macierzRzadka.containsKey(para);
     }
 
     public void ustawWartosc(int wiersz, int kolumna, double wartosc) {
@@ -47,7 +57,7 @@ public class MacierzRzadka {
             throw new WyjatekMacierz(errStr);
         }
         Para para = new Para(wiersz, kolumna);
-        rzadkaMacierz.put(para, wartosc);
+        macierzRzadka.put(para, wartosc);
     }
 
     public double pobierzWartosc(int wiersz, int kolumna) {
@@ -59,13 +69,13 @@ public class MacierzRzadka {
             String errStr = String.format("Element w wierszu: %d kolumnie: %d nie jest ustawiony", wiersz, kolumna);
             throw new WyjatekMacierz(errStr);
         }
-        return rzadkaMacierz.get(new Para(wiersz, kolumna));
+        return macierzRzadka.get(new Para(wiersz, kolumna));
     }
 
     public ArrayList<Double> pobierzWiersz(int wiersz) {
         ArrayList<Para> wartosciWiersza = new ArrayList<>();
 
-        for (Para para : rzadkaMacierz.keySet()) {
+        for (Para para : macierzRzadka.keySet()) {
             if (para.wiersz == wiersz) {
                 wartosciWiersza.add(para);
             }
@@ -76,7 +86,7 @@ public class MacierzRzadka {
             double aktualnaWartoscKolumny = 0.0;
             for(Para para: wartosciWiersza) {
                 if (para.kolumna == i) {
-                    aktualnaWartoscKolumny = rzadkaMacierz.get(para);
+                    aktualnaWartoscKolumny = macierzRzadka.get(para);
                 }
             }
             wartosciWierszaZeZerami.add(aktualnaWartoscKolumny);
@@ -88,7 +98,7 @@ public class MacierzRzadka {
     public ArrayList<Double> pobierzKolumne(int kolumna) {
         ArrayList<Para> wartosciKolumny = new ArrayList<>();
 
-        for (Para para : rzadkaMacierz.keySet()) {
+        for (Para para : macierzRzadka.keySet()) {
             if (para.kolumna == kolumna) {
                 wartosciKolumny.add(para);
             }
@@ -99,7 +109,7 @@ public class MacierzRzadka {
             double aktualnaWartoscWiersza = 0.0;
             for (Para para : wartosciKolumny) {
                 if (para.wiersz == i) {
-                    aktualnaWartoscWiersza = rzadkaMacierz.get(para);
+                    aktualnaWartoscWiersza = macierzRzadka.get(para);
                 }
             }
             wartosciKolumnyZeZerami.add(aktualnaWartoscWiersza);
