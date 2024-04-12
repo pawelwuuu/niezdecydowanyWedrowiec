@@ -1,24 +1,38 @@
 package org.niezdecydowanyWedrowiec;
 
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
-import org.niezdecydowanyWedrowiec.prawodpodobienstwa.SymulacjaMonteCarlo;
-import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaUproszczona;
+import org.niezdecydowanyWedrowiec.macierz.WyjatekMacierz;
+import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaPodstawowaMacierz;
+import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaPodstawowaSymulacja;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(4,3));
-        System.out.println(SymulacjaMonteCarlo.symuluj(4,3,100000)); // to jest dobrze ;)
 
-        MacierzRzadka macierzRzadka = new MacierzRzadka(2);
-        macierzRzadka.ustawWartosc(1,1,3.5);
+        MacierzRzadka macierzRzadka = new MacierzRzadka(transpose(WersjaPodstawowaMacierz.macierzPodstawowa()));
 
         System.out.println(macierzRzadka);
 
-        Double[][] tablica = {
-                {1.,2.},
-                {1.,2.,3.}
-        };
+        try {
+            System.out.println(macierzRzadka.pobierzWartosc(0,1));
+        } catch (WyjatekMacierz e) {
+            System.out.println(e.getMessage());
+        }
 
-        WyswietlaczTablic.wyswietlTablice(tablica);
+
+    }
+
+    public static Double[][] transpose(Double[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        Double[][] transposedMatrix = new Double[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                transposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        return transposedMatrix;
     }
 }

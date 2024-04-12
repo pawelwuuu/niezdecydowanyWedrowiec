@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class WersjaPodstawowaSymulacja {
+public class WersjaPodstawowaSymulacja {
     public static int obecnie;
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy wejscie
