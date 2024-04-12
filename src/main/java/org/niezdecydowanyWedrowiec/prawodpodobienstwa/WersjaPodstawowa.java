@@ -16,7 +16,7 @@ class WersjaPodstawowa {
 
     public static double podruz(int n)
     {
-        czytajDaneZPliku("src\\main\\java\\org\\example\\park.txt");    //Wczytuje z pliku wygląd parku
+        czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");    //Wczytuje z pliku wygląd parku
 
         Random random = new Random();
 

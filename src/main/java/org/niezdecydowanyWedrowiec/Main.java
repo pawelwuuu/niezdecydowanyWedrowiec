@@ -13,5 +13,12 @@ public class Main {
         macierzRzadka.ustawWartosc(1,1,3.5);
 
         System.out.println(macierzRzadka);
+
+        Double[][] tablica = {
+                {1.,2.},
+                {1.,2.,3.}
+        };
+
+        WyswietlaczTablic.wyswietlTablice(tablica);
     }
 }
