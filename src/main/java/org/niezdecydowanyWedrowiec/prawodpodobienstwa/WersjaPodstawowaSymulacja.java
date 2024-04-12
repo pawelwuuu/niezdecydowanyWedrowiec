@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class WersjaPodstawowa {
+class WersjaPodstawowaSymulacja {
     public static int obecnie;
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy wejscie
@@ -44,9 +44,9 @@ class WersjaPodstawowa {
         }while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1]));
 
         if(skrzyrzowania[0][obecnie-1])                                         //zwraca true jeżeli wędrowiec wyjdzie oraz false gdy wpadnie do studzianki
-            return true;
-        else
             return false;
+        else
+            return true;
     }
 
     public static void czytajDaneZPliku(String nazwaPliku) {
