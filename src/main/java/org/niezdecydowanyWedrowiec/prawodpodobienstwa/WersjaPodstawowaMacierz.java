@@ -123,4 +123,18 @@ public class WersjaPodstawowaMacierz {
         drogi[b-1][a-1] = c;
     }
 
+    public static Double[] podajWektorWynikowy() {
+        Double[] wektorWynikowy = new Double[macierz.length];
+
+        for (int i = 0; i < skrzyrzowania[1].length; i++) {
+            if  (skrzyrzowania[1][i] == true) {
+                wektorWynikowy[i] = 1.;
+            } else {
+                wektorWynikowy[i] = 0.;
+            }
+        }
+
+        return wektorWynikowy;
+    }
+
 }

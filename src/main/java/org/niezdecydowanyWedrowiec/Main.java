@@ -8,16 +8,8 @@ import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaPodstawowaSymulacja;
 public class Main {
     public static void main(String[] args) {
 
-        MacierzRzadka macierzRzadka = new MacierzRzadka(transpose(WersjaPodstawowaMacierz.macierzPodstawowa()));
-
-        System.out.println(macierzRzadka);
-
-        try {
-            System.out.println(macierzRzadka.pobierzWartosc(0,1));
-        } catch (WyjatekMacierz e) {
-            System.out.println(e.getMessage());
-        }
-
+        WyswietlaczTablic.wyswietlTablice(transpose(WersjaPodstawowaMacierz.macierzPodstawowa()));
+        WyswietlaczTablic.wyswietlTablice(WersjaPodstawowaMacierz.podajWektorWynikowy());
 
     }
 
