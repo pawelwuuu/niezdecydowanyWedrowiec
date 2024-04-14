@@ -2,7 +2,17 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
 import java.util.ArrayList;
 
+/**
+ * Klasa implementująca uproszczoną wersję obliczania prawdopodobieństw miejsc.
+ */
 public class WersjaUproszczona {
+
+    /**
+     * Metoda obliczająca prawdopodobieństwa miejsc.
+     * @param n Liczba początkowa.
+     * @param s Liczba docelowa.
+     * @return Lista zawierająca obliczone prawdopodobieństwa.
+     */
     public static ArrayList<Double> obliczPrawdopodobienstwaMiejsc(int n, int s) {
         int szerokoscMacierzy = 1 + n + s;
         double[][] macierz = new double[szerokoscMacierzy][szerokoscMacierzy];
@@ -25,6 +35,12 @@ public class WersjaUproszczona {
         return wynik;
     }
 
+    /**
+     * Metoda rozwiązująca układ równań.
+     * @param A Macierz współczynników.
+     * @param b Wektor wyrazów wolnych.
+     * @return Tablica zawierająca rozwiązanie układu równań.
+     */
     public static double[] rozwiaz(double[][] A, double[] b) {
         int N = A.length;
 

@@ -2,24 +2,37 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
+/**
+ * Klasa implementująca podstawową wersję algorytmu wyznaczania macierzy podstawowej.
+ */
 public class WersjaPodstawowaMacierz {
+
+    /** Obecna pozycja w parku. */
     public static int obecnie;
+
+    /** Tablica reprezentująca skrzyżowania w parku. */
     public static boolean[][] skrzyrzowania;    /*
                                                 0 - czy studzienka
-                                                1 - czy wejscie
+                                                1 - czy wejście
                                                 2 - miejsce startowe
-                                                3 - czy smietnik
+                                                3 - czy śmietnik
                                                 */
-    public static int[][] drogi;    //czas drogi między m i n skrzyrzowaniem
 
+    /** Tablica reprezentująca czasy podróży między skrzyżowaniami. */
+    public static int[][] drogi;
+
+    /** Macierz podstawowa. */
     public static double[][] macierz;
 
+    /**
+     * Metoda tworząca macierz podstawową.
+     * @return Macierz podstawowa.
+     */
     public static double[][] macierzPodstawowa() {
 
         WczytaniePliku.czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
-
 
         macierz = new double[skrzyrzowania[0].length][skrzyrzowania.length];
 
@@ -38,27 +51,23 @@ public class WersjaPodstawowaMacierz {
                             macierz[i][j] = (double) 0;
                         }
                         else {
-                            macierz[i][j] = WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j]); //wpisuje szanse przejścia przez alejke
+                            macierz[i][j] = WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j]); //wpisuje szanse przejścia przez alejkę
                             niePusty = true;
                         }
                     }
                 }
             }
             if(niePusty)
-                poprawDane(j);      //Przekształca proporcionalnie dane by ich suma dawała 0
+                poprawDane(j);      //Przekształca proporcjonalnie dane, by ich suma dawała 0
         }
-
-//        for (int j = 0; j < macierz.length; j++) {
-//            for (int i = 0; i < macierz[j].length; i++) {       //wypisuje macierz
-//                System.out.print(macierz[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-
-
 
         return transponuj(macierz);
     }
+
+    /**
+     * Metoda poprawiająca dane w macierzy.
+     * @param j Indeks kolumny macierzy.
+     */
     public static void poprawDane(int j)
     {
         double sum = 0;
@@ -80,6 +89,10 @@ public class WersjaPodstawowaMacierz {
         System.out.println();
     }
 
+    /**
+     * Metoda zwracająca wektor wynikowy.
+     * @return Wektor wynikowy.
+     */
     public static double[] podajWektorWynikowy() {
         double[] wektorWynikowy = new double[macierz.length];
 
@@ -94,12 +107,21 @@ public class WersjaPodstawowaMacierz {
         return wektorWynikowy;
     }
 
+    /**
+     * Metoda rozwiązująca równanie.
+     * @return Rozwiązanie równania.
+     */
     public static double[] rozwiazRownanie() {
         double[][] macierzPodstawowa = macierzPodstawowa();
         double[] wektorWynikowy = podajWektorWynikowy();
         return WersjaUproszczona.rozwiaz(macierzPodstawowa, wektorWynikowy);
     }
 
+    /**
+     * Metoda transponująca macierz.
+     * @param matrix Macierz do transponowania.
+     * @return Transponowana macierz.
+     */
     public static double[][] transponuj(double[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -114,5 +136,4 @@ public class WersjaPodstawowaMacierz {
 
         return transposedMatrix;
     }
-
 }

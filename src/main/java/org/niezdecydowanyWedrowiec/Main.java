@@ -13,7 +13,7 @@ public class Main {
 
         WyswietlaczTablic.wyswietlTablice(WersjaPodstawowaMacierz.rozwiazRownanie());
 
-        double[] rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 10000000, 0.00000000000001);
+        double[] rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 3, 0.1);
         WyswietlaczTablic.wyswietlTablice(rozwiaz);
 
     }

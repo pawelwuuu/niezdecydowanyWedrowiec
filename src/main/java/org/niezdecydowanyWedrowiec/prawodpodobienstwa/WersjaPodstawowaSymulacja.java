@@ -1,18 +1,32 @@
 package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
+
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
 import java.util.Random;
 
+/**
+ * Klasa implementująca podstawową wersję symulacji wedrowania po parku.
+ */
 public class WersjaPodstawowaSymulacja {
+    /** Obecna pozycja w parku. */
     public static int obecnie;
+
+    /** Tablica reprezentująca skrzyżowania w parku. */
     public static boolean[][] skrzyrzowania;    /*
-                                                0 - czy wejscie
+                                                0 - czy wejście
                                                 1 - czy studzienka
                                                 2 - miejsce startowe
-                                                3 - czy smietnik
+                                                3 - czy śmietnik
                                                 */
-    public static int[][] drogi;    //czas drogi między m i n skrzyrzowaniem
 
+    /** Tablica reprezentująca czasy podróży między skrzyżowaniami. */
+    public static int[][] drogi;
+
+    /**
+     * Metoda symulująca podróż po parku.
+     * @param n Liczba symulacji do przeprowadzenia.
+     * @return Prawdopodobieństwo sukcesu wyjścia z parku.
+     */
     public static double podruz(int n)
     {
         WczytaniePliku.czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
@@ -31,6 +45,11 @@ public class WersjaPodstawowaSymulacja {
         return (sukces / n);
     }
 
+    /**
+     * Metoda sprawdzająca, czy osoba wyjdzie z parku.
+     * @param random Generator liczb losowych.
+     * @return True, jeśli osoba wyjdzie z parku; False, jeśli wpadnie do studzienki.
+     */
     public static boolean czyWyjdzie(Random random)
     {
         for(int i = 0; i < skrzyrzowania[0].length; i++) {  //ustala miejsce startu
@@ -51,6 +70,11 @@ public class WersjaPodstawowaSymulacja {
             return true;
     }
 
+    /**
+     * Metoda losująca drogę.
+     * @param random Generator liczb losowych.
+     * @return Numer skrzyżowania, na które należy się udać.
+     */
     public static int wyburDrogi(Random random)
     {
         int i = 0;
