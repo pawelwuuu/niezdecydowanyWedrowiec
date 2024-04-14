@@ -4,6 +4,15 @@ import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
 
 public class GaussSeidel {
 
+    /**
+     * Rozwiązuje układ równań liniowych Ax = b metodą Gaussa-Seidela.
+     *
+     * @param A             Macierz rzadka reprezentująca współczynniki układu równań.
+     * @param b             Wektor reprezentujący prawą stronę układu równań.
+     * @param maksIteracji  Maksymalna liczba iteracji algorytmu.
+     * @param tolerancja    Tolerancja określająca warunek stopu.
+     * @return Wektor zawierający rozwiązania układu równań.
+     */
     public static double[] rozwiaz(MacierzRzadka A, double[] b, int maksIteracji, double tolerancja) {
         int n = A.rozmiarMacierzy;
         double[] x = new double[n];
@@ -41,6 +50,13 @@ public class GaussSeidel {
         return x;
     }
 
+    /**
+     * Oblicza normę różnicy między dwoma wektorami.
+     *
+     * @param x     Pierwszy wektor.
+     * @param xNowe Drugi wektor.
+     * @return Norma różnicy między wektorami.
+     */
     private static double obliczNormeRoznic(double[] x, double[] xNowe) {
         double sumaKwadratow = 0.0;
         for (int i = 0; i < x.length; i++) {
@@ -49,4 +65,3 @@ public class GaussSeidel {
         return Math.sqrt(sumaKwadratow);
     }
 }
-
