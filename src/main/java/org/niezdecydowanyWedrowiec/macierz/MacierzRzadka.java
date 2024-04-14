@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class MacierzRzadka {
-    int rozmiarMacierzy;
+    public int rozmiarMacierzy;
     private final LinkedHashMap<Para, Double> macierzRzadka = new LinkedHashMap<>();
 
     public MacierzRzadka(int rozmiarMacierzy) {
@@ -13,6 +13,17 @@ public class MacierzRzadka {
     }
 
     public MacierzRzadka(Double[][] macierzZwykla) {
+        rozmiarMacierzy = macierzZwykla.length;
+        for (int i = 0; i < rozmiarMacierzy; i++) {
+            for (int j = 0; j < rozmiarMacierzy; j++) {
+                if (macierzZwykla[i][j] != 0) {
+                    ustawWartosc(i,j, macierzZwykla[i][j]);
+                }
+            }
+        }
+    }
+
+    public MacierzRzadka(double[][] macierzZwykla) {
         rozmiarMacierzy = macierzZwykla.length;
         for (int i = 0; i < rozmiarMacierzy; i++) {
             for (int j = 0; j < rozmiarMacierzy; j++) {
