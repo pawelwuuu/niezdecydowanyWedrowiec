@@ -1,4 +1,4 @@
-package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
+package org.niezdecydowanyWedrowiec;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

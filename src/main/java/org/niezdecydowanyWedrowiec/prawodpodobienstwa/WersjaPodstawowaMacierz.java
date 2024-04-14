@@ -1,8 +1,6 @@
 package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
 public class WersjaPodstawowaMacierz {
     public static int obecnie;
@@ -14,16 +12,16 @@ public class WersjaPodstawowaMacierz {
                                                 */
     public static int[][] drogi;    //czas drogi między m i n skrzyrzowaniem
 
-    public static Double[][]macierz;
+    public static double[][] macierz;
 
-    public static Double[][] macierzPodstawowa() {
+    public static double[][] macierzPodstawowa() {
 
         WczytaniePliku.czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
 
 
-        macierz = new Double[skrzyrzowania[0].length][skrzyrzowania.length];
+        macierz = new double[skrzyrzowania[0].length][skrzyrzowania.length];
 
         for (int j = 0; j < macierz.length; j++) {
             boolean niePusty = false;
@@ -82,11 +80,11 @@ public class WersjaPodstawowaMacierz {
         System.out.println();
     }
 
-    public static Double[] podajWektorWynikowy() {
-        Double[] wektorWynikowy = new Double[macierz.length];
+    public static double[] podajWektorWynikowy() {
+        double[] wektorWynikowy = new double[macierz.length];
 
         for (int i = 0; i < skrzyrzowania[1].length; i++) {
-            if  (skrzyrzowania[1][i] == true) {
+            if  (skrzyrzowania[1][i]) {
                 wektorWynikowy[i] = 1.;
             } else {
                 wektorWynikowy[i] = 0.;
@@ -94,6 +92,27 @@ public class WersjaPodstawowaMacierz {
         }
 
         return wektorWynikowy;
+    }
+
+    public static double[] rozwiazRownanie() {
+        double[][] macierzPodstawowa = macierzPodstawowa();
+        double[] wektorWynikowy = podajWektorWynikowy();
+        return WersjaUproszczona.rozwiaz(transponuj(macierzPodstawowa), wektorWynikowy);
+    }
+
+    public static double[][] transponuj(double[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        double[][] transposedMatrix = new double[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                transposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        return transposedMatrix;
     }
 
 }
