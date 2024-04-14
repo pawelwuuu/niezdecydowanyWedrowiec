@@ -9,7 +9,15 @@ public class WyswietlaczTablic {
         System.out.println(konwertujTabliceNaString(tablica));
     }
 
-    public static String konwertujTabliceNaString(Object[][] tablica) {
+    public static void wyswietlTablice(double[][] tablica) {
+        System.out.println(konwertujTabliceNaString(tablica));
+    }
+
+    public static void wyswietlTablice(double[] tablica) {
+        System.out.println(konwertujTabliceNaString(tablica));
+    }
+
+    public static String konwertujTabliceNaString(double[][] tablica) {
         int dlugoscTablicy = tablica.length;
 
         String tablicaNapis = "-------------------\n";
@@ -37,4 +45,18 @@ public class WyswietlaczTablic {
 
         return tablicaNapis;
     }
+
+    public static String konwertujTabliceNaString(double[] tablica) {
+        int dlugoscTablicy = tablica.length;
+
+        String tablicaNapis = "-------------------\n";
+        for (int i = 0; i < dlugoscTablicy; i++) {
+            tablicaNapis += "\t" + tablica[i];
+        }
+
+        tablicaNapis += "\n-------------------";
+
+        return tablicaNapis;
+    }
+
 }
