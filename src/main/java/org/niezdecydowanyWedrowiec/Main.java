@@ -15,7 +15,6 @@ public class Main {
 
         double[] rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 3, 0.1);
         WyswietlaczTablic.wyswietlTablice(rozwiaz);
-
     }
 
 

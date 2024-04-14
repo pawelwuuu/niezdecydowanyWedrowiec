@@ -8,8 +8,6 @@ import java.io.IOException;
  * Klasa odpowiedzialna za wczytywanie danych z pliku.
  */
 public class WczytaniePliku {
-
-    /** Tablica przechowująca czasy przejazdów między skrzyżowaniami. */
     public static int[][] drogi;
 
     /** Tablica przechowująca właściwości skrzyżowań. */
