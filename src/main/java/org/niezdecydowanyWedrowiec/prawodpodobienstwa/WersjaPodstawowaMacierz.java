@@ -57,7 +57,7 @@ public class WersjaPodstawowaMacierz {
 
 
 
-        return macierz;
+        return transponuj(macierz);
     }
     public static void poprawDane(int j)
     {
@@ -97,7 +97,7 @@ public class WersjaPodstawowaMacierz {
     public static double[] rozwiazRownanie() {
         double[][] macierzPodstawowa = macierzPodstawowa();
         double[] wektorWynikowy = podajWektorWynikowy();
-        return WersjaUproszczona.rozwiaz(transponuj(macierzPodstawowa), wektorWynikowy);
+        return WersjaUproszczona.rozwiaz(macierzPodstawowa, wektorWynikowy);
     }
 
     public static double[][] transponuj(double[][] matrix) {
