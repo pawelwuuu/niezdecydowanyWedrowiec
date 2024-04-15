@@ -1,7 +1,10 @@
 package org.niezdecydowanyWedrowiec;
 
+import org.niezdecydowanyWedrowiec.algorytmy.GaussEliminacja;
 import org.niezdecydowanyWedrowiec.algorytmy.GaussSeidel;
+import org.niezdecydowanyWedrowiec.algorytmy.GaussZCzesciowymWyborem;
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
+import org.niezdecydowanyWedrowiec.miernikCzasu.MiernikCzasu;
 import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaPodstawowaMacierz;
 
 public class Main {
@@ -13,8 +16,10 @@ public class Main {
 
         WyswietlaczTablic.wyswietlTablice(WersjaPodstawowaMacierz.rozwiazRownanie());
 
-        double[] rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 3, 0.1);
+        double[] rozwiaz = GaussZCzesciowymWyborem.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy());
         WyswietlaczTablic.wyswietlTablice(rozwiaz);
+
+
     }
 
 
