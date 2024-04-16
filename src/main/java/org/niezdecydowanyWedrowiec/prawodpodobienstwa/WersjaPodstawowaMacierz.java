@@ -1,5 +1,6 @@
 package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
+import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
 /**
@@ -30,11 +31,11 @@ public class WersjaPodstawowaMacierz {
      */
     public static double[][] macierzPodstawowa() {
 
-        WczytaniePliku.czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
+        WczytaniePliku.czytajDaneZPliku(Main.nazwaPliku);
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
 
-        macierz = new double[skrzyrzowania[0].length][skrzyrzowania.length];
+        macierz = new double[drogi[0].length][drogi.length];
 
         for (int j = 0; j < macierz.length; j++) {
             boolean niePusty = false;
@@ -86,7 +87,6 @@ public class WersjaPodstawowaMacierz {
                 else
                     macierz[i][j] *= -1/sum;
             }
-        System.out.println();
     }
 
     /**

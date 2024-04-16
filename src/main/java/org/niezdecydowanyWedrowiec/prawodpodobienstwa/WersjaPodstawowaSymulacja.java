@@ -1,5 +1,6 @@
 package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
+import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
 import java.util.Random;
@@ -24,12 +25,12 @@ public class WersjaPodstawowaSymulacja {
 
     /**
      * Metoda symulująca podróż po parku.
-     * @param n Liczba symulacji do przeprowadzenia.
+     * @param iloscSymulacji Liczba symulacji do przeprowadzenia.
      * @return Prawdopodobieństwo sukcesu wyjścia z parku.
      */
-    public static double podruz(int n)
+    public static double symuluj(int iloscSymulacji)
     {
-        WczytaniePliku.czytajDaneZPliku("src\\main\\java\\org\\niezdecydowanyWedrowiec\\park.txt");
+        WczytaniePliku.czytajDaneZPliku(Main.nazwaPliku);
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
         obecnie = WczytaniePliku.obecnie;
@@ -38,11 +39,12 @@ public class WersjaPodstawowaSymulacja {
 
         double sukces = 0;
 
-        for(int i = 0; i < n; i++)      //Przeprowadza N symulacji wyjścia z parku
-            if(czyWyjdzie(random))
+        for(int i = 0; i < iloscSymulacji; i++) {    //Przeprowadza N symulacji wyjścia z parku
+            if (czyWyjdzie(random)) {
                 sukces++;
-
-        return (sukces / n);
+            }
+        }
+        return (sukces / iloscSymulacji);
     }
 
     /**
