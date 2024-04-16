@@ -2,9 +2,7 @@ package org.niezdecydowanyWedrowiec.hipotezy;
 
 import org.niezdecydowanyWedrowiec.algorytmy.GaussEliminacja;
 import org.niezdecydowanyWedrowiec.algorytmy.GaussSeidel;
-import org.niezdecydowanyWedrowiec.algorytmy.GaussZCzesciowymWyborem;
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
-import org.niezdecydowanyWedrowiec.miernikCzasu.Funkcja;
 import org.niezdecydowanyWedrowiec.prawodpodobienstwa.WersjaPodstawowaMacierz;
 
 public class Hipoteza1 {

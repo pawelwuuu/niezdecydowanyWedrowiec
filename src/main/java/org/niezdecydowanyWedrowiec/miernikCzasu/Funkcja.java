@@ -9,6 +9,4 @@ public interface Funkcja {
      * Metoda wykonująca daną funkcję.
      */
     void wykonaj();
-
-    double[] podajMacierz();
 }

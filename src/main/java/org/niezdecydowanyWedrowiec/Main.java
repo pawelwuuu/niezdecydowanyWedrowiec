@@ -6,6 +6,7 @@ import org.niezdecydowanyWedrowiec.algorytmy.GaussZCzesciowymWyborem;
 import org.niezdecydowanyWedrowiec.hipotezy.Hipoteza1;
 import org.niezdecydowanyWedrowiec.hipotezy.Hipoteza2;
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
+import org.niezdecydowanyWedrowiec.miernikCzasu.Funkcja;
 import org.niezdecydowanyWedrowiec.miernikCzasu.MiernikCzasu;
 import org.niezdecydowanyWedrowiec.parki.GeneratorParkow;
 import org.niezdecydowanyWedrowiec.prawodpodobienstwa.SymulacjaMonteCarlo;
@@ -24,12 +25,9 @@ public class Main {
 //        WyswietlaczTablic.wyswietlTablice(rozwiaz2);
 
 
-        new Hipoteza2().podajWynik();
-        System.out.println(WersjaPodstawowaSymulacja.symuluj(1000));
-
+//        new Hipoteza2().podajWynik();
+//
 
 
     }
-
-
 }
