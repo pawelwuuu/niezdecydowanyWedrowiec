@@ -11,9 +11,9 @@ public class MiernikCzasu {
      * @return Czas wykonania funkcji w milisekundach.
      */
     public static long zmierzCzasWykonania(Funkcja funkcja) {
-        long czasStartu = System.currentTimeMillis();
+        long czasStartu = System.nanoTime();
         funkcja.wykonaj();
-        long czasKonca = System.currentTimeMillis();
+        long czasKonca = System.nanoTime();
 
         return czasKonca - czasStartu;
     }

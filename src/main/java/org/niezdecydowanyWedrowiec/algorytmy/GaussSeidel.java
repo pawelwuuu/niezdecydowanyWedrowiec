@@ -41,11 +41,11 @@ public class GaussSeidel {
             iteracja++;
         }
 
-        if (iteracja >= maksIteracji) {
-            System.out.println("Osiągnięto maksymalną liczbę iteracji.");
-        } else {
-            System.out.println("Osiągnięto wymaganą tolerancję.");
-        }
+//        if (iteracja >= maksIteracji) {
+//            System.out.println("Osiągnięto maksymalną liczbę iteracji.");
+//        } else {
+//            System.out.println("Osiągnięto wymaganą tolerancję.");
+//        }
 
         return x;
     }
