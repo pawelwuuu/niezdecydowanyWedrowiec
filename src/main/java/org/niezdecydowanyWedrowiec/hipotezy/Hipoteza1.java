@@ -1,5 +1,6 @@
 package org.niezdecydowanyWedrowiec.hipotezy;
 
+import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.algorytmy.GaussEliminacja;
 import org.niezdecydowanyWedrowiec.algorytmy.GaussSeidel;
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
@@ -14,10 +15,43 @@ public class Hipoteza1 {
     double suma1, suma2;
 
     public void podajWynik() {
+        double[] rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 10000, 1e-20);
+        double[] rozwiaz1 = GaussEliminacja.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy());
+
+
         System.out.println("gauss - gaussZwyborem");
         for (int i = 0; i < rozwiaz.length; i++) {
             System.out.println(rozwiaz[i] - rozwiaz1[i]);
         }
+
+        Main.nazwaPliku = "src\\main\\java\\org\\niezdecydowanyWedrowiec\\parki\\parkDM0.txt";
+        rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 10000, 1e-20);
+        rozwiaz1 = GaussEliminacja.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy());
+
+
+        System.out.println("gauss - gaussZwyborem");
+        for (int i = 0; i < rozwiaz.length; i++) {
+            System.out.println(rozwiaz[i] - rozwiaz1[i]);
+        }
+        Main.nazwaPliku = "src\\main\\java\\org\\niezdecydowanyWedrowiec\\parki\\parkMM0.txt";
+        rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 10000, 1e-20);
+        rozwiaz1 = GaussEliminacja.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy());
+
+
+        System.out.println("gauss - gaussZwyborem");
+        for (int i = 0; i < rozwiaz.length; i++) {
+            System.out.println(rozwiaz[i] - rozwiaz1[i]);
+        }
+        Main.nazwaPliku = "src\\main\\java\\org\\niezdecydowanyWedrowiec\\parki\\parkMD0.txt";
+        rozwiaz = GaussSeidel.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy(), 10000, 1e-20);
+        rozwiaz1 = GaussEliminacja.rozwiaz(new MacierzRzadka(WersjaPodstawowaMacierz.macierzPodstawowa()), WersjaPodstawowaMacierz.podajWektorWynikowy());
+
+
+        System.out.println("gauss - gaussZwyborem");
+        for (int i = 0; i < rozwiaz.length; i++) {
+            System.out.println(rozwiaz[i] - rozwiaz1[i]);
+        }
+
     }
 
 }
