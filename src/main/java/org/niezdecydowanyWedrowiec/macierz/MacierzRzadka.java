@@ -124,8 +124,7 @@ public class MacierzRzadka {
             throw new WyjatekMacierz(errStr);
         }
         if (!czyUstawione(wiersz, kolumna)) {
-            String errStr = String.format("Element w wierszu: %d kolumnie: %d nie jest ustawiony", wiersz, kolumna);
-            throw new WyjatekMacierz(errStr);
+            return 0.;
         }
         return macierzRzadka.get(new Para(wiersz, kolumna));
     }
