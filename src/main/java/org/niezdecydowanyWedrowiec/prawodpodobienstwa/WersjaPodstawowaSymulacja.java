@@ -28,12 +28,12 @@ public class WersjaPodstawowaSymulacja {
      * @param iloscSymulacji Liczba symulacji do przeprowadzenia.
      * @return Prawdopodobieństwo sukcesu wyjścia z parku.
      */
-    public static double symuluj(int iloscSymulacji)
+    public static double symuluj(int iloscSymulacji, int obecnieee)
     {
         WczytaniePliku.czytajDaneZPliku(Main.nazwaPliku);
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
-        obecnie = WczytaniePliku.obecnie;
+        obecnie = obecnieee;//WczytaniePliku.obecnie;
 
         Random random = new Random();
 

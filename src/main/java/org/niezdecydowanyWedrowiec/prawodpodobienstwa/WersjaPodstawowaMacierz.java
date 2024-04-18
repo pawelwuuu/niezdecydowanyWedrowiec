@@ -2,6 +2,7 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
 import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
+import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
 
 /**
  * Klasa implementująca podstawową wersję algorytmu wyznaczania macierzy podstawowej.
@@ -23,36 +24,33 @@ public class WersjaPodstawowaMacierz {
     public static int[][] drogi;
 
     /** Macierz podstawowa. */
-    public static double[][] macierz;
+    //public static double[][] macierz;
 
+    public static MacierzRzadka macierzRzadka;
     /**
      * Metoda tworząca macierz podstawową.
      * @return Macierz podstawowa.
      */
-    public static double[][] macierzPodstawowa() {
+    public static MacierzRzadka macierzPodstawowa() {
 
         WczytaniePliku.czytajDaneZPliku(Main.nazwaPliku);
         drogi = WczytaniePliku.drogi;
         skrzyrzowania = WczytaniePliku.skrzyrzowania;
 
-        macierz = new double[drogi[0].length][drogi.length];
+        //macierz = new double[drogi[0].length][drogi.length];
+        macierzRzadka = new MacierzRzadka(drogi[0].length);
 
-        for (int j = 0; j < macierz.length; j++) {
+        for (int j = 0; j < drogi[0].length; j++) {
             boolean niePusty = false;
-            for (int i = 0; i < macierz[j].length; i++) {
+            for (int i = 0; i < drogi[0].length; i++) {
                 if(i == j)
-                    macierz[j][i] = 1.0;          //Wypełnia skos 1
+                    macierzRzadka.ustawWartosc(j,i,1.0);
                 else
                 {
-                    if(skrzyrzowania[0][j] || skrzyrzowania[1][j])
-                        macierz[i][j] = (double) 0;          //jeżeli jest studzienka albo wyjście wpisuje 0
-                    else
+                    if(!(skrzyrzowania[0][j] || skrzyrzowania[1][j]))
                     {
-                        if(drogi[i][j] == 0) {
-                            macierz[i][j] = (double) 0;
-                        }
-                        else {
-                            macierz[i][j] = WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j]); //wpisuje szanse przejścia przez alejkę
+                        if(!(drogi[i][j] == 0)) {
+                            macierzRzadka.ustawWartosc(i,j, WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j])); //wpisuje szanse przejścia przez alejkę
                             niePusty = true;
                         }
                     }
@@ -62,7 +60,7 @@ public class WersjaPodstawowaMacierz {
                 poprawDane(j);      //Przekształca proporcjonalnie dane, by ich suma dawała 0
         }
 
-        return transponuj(macierz);
+        return transponuj(macierzRzadka);
     }
 
     /**
@@ -73,19 +71,19 @@ public class WersjaPodstawowaMacierz {
     {
         double sum = 0;
         for(int i = 0; i < drogi.length; i++)
-            if(macierz[i][j] != 1)
+            if(macierzRzadka.pobierzWartosc(i,j) != 1)
             {
-                sum += macierz[i][j];
+                sum += macierzRzadka.pobierzWartosc(i,j);
                 if(!skrzyrzowania[3][i])
-                    sum += macierz[i][j];
+                    sum += macierzRzadka.pobierzWartosc(i,j);
             }
         for(int i = 0; i < drogi.length; i++)
-            if(macierz[i][j] != 1)
+            if(macierzRzadka.pobierzWartosc(i,j) != 1)
             {
                 if(!skrzyrzowania[3][i])
-                    macierz[i][j] *= -2/sum;
+                    macierzRzadka.ustawWartosc(i,j,macierzRzadka.pobierzWartosc(i,j) * -2/sum);
                 else
-                    macierz[i][j] *= -1/sum;
+                    macierzRzadka.ustawWartosc(i,j,macierzRzadka.pobierzWartosc(i,j) * -1/sum);
             }
     }
 
@@ -94,7 +92,7 @@ public class WersjaPodstawowaMacierz {
      * @return Wektor wynikowy.
      */
     public static double[] podajWektorWynikowy() {
-        double[] wektorWynikowy = new double[macierz.length];
+        double[] wektorWynikowy = new double[drogi[0].length];
 
         for (int i = 0; i < skrzyrzowania[1].length; i++) {
             if  (skrzyrzowania[1][i]) {
@@ -107,30 +105,22 @@ public class WersjaPodstawowaMacierz {
         return wektorWynikowy;
     }
 
-    /**
-     * Metoda rozwiązująca równanie.
-     * @return Rozwiązanie równania.
-     */
-    public static double[] rozwiazRownanie() {
-        double[][] macierzPodstawowa = macierzPodstawowa();
-        double[] wektorWynikowy = podajWektorWynikowy();
-        return WersjaUproszczona.rozwiaz(macierzPodstawowa, wektorWynikowy);
-    }
 
     /**
      * Metoda transponująca macierz.
      * @param matrix Macierz do transponowania.
      * @return Transponowana macierz.
      */
-    public static double[][] transponuj(double[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
+    public static MacierzRzadka transponuj(MacierzRzadka matrix) {
+        int rows = drogi[0].length;
+        int cols = drogi[0].length;
 
-        double[][] transposedMatrix = new double[cols][rows];
+        MacierzRzadka transposedMatrix = new MacierzRzadka(rows);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                transposedMatrix[j][i] = matrix[i][j];
+                if(matrix.czyUstawione(i,j))
+                    transposedMatrix.ustawWartosc(j,i,matrix.pobierzWartosc(i,j));
             }
         }
 
