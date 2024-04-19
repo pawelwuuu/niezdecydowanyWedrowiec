@@ -5,56 +5,32 @@ import org.niezdecydowanyWedrowiec.macierz.WyjatekMacierz;
 
 public class GaussEliminacja {
 
-    /**
-     * Rozwiązuje układ równań liniowych Ax = b, gdzie A jest rzadką macierzą, a b jest wektorem.
-     * @param A Rzadka macierz współczynników.
-     * @param b Wektor wyrazów wolnych.
-     * @return Wektor rozwiązania.
-     * @throws WyjatekMacierz Jeśli macierz A i wektor b mają różne rozmiary lub nie można rozwiązać układu.
-     */
-    public static double[] rozwiaz(MacierzRzadka A, double[] b) throws WyjatekMacierz {
-        int rozmiar = A.rozmiarMacierzy;
-        if (rozmiar != b.length) {
-            throw new WyjatekMacierz("Rozmiary macierzy A i wektora b są niezgodne.");
-        }
 
-        // Kopia macierzy A
-        MacierzRzadka kopiaA = new MacierzRzadka(A.rozmiarMacierzy);
-        for (int i = 0; i < A.rozmiarMacierzy; i++) {
-            for (int j = 0; j < A.rozmiarMacierzy; j++) {
-                if (A.czyUstawione(i, j)) {
-                    kopiaA.ustawWartosc(i, j, A.pobierzWartosc(i, j));
-                } else {
-                    kopiaA.ustawWartosc(i, j, 0); // Ustawienie domyślnej wartości na zero dla nieustawionych elementów
-                }
-            }
-        }
+    public static double[] rozwiaz(MacierzRzadka macierzRzadka, double[] b) {
+        int dlugosc = b.length;
+        double[] wynik = new double[dlugosc];
 
         // Eliminacja Gaussa
-        for (int i = 0; i < rozmiar - 1; i++) {
-            for (int j = i + 1; j < rozmiar; j++) {
-                double factor = kopiaA.pobierzWartosc(j, i) / kopiaA.pobierzWartosc(i, i);
-                for (int k = i; k < rozmiar; k++) {
-                    double newValue = kopiaA.pobierzWartosc(j, k) - factor * kopiaA.pobierzWartosc(i, k);
-                    kopiaA.ustawWartosc(j, k, newValue);
+        for (int k = 0; k < dlugosc - 1; k++) {
+            for (int i = k + 1; i < dlugosc; i++) {
+                double m = macierzRzadka.pobierzWartosc(i,k) / macierzRzadka.pobierzWartosc(k,k);
+                for (int j = k; j < dlugosc; j++) {
+                    double wartoscIJ = macierzRzadka.pobierzWartosc(i,j);
+                    macierzRzadka.ustawWartosc(i,j, wartoscIJ - m * macierzRzadka.pobierzWartosc(k,j));
                 }
-                b[j] -= factor * b[i];
+                b[i] -= m * b[k];
             }
         }
 
-        // Rozwiązanie równań za pomocą wstecznej substytucji
-        double[] x = new double[rozmiar];
-        for (int i = rozmiar - 1; i >= 0; i--) {
-            double sum = 0.0;
-            for (int j = i + 1; j < rozmiar; j++) {
-                sum += kopiaA.pobierzWartosc(i, j) * x[j];
+        // Rozwiązanie układu równań z postaci trójkątnej górnej
+        for (int i = dlugosc - 1; i >= 0; i--) {
+            wynik[i] = b[i];
+            for (int j = i + 1; j < dlugosc; j++) {
+                wynik[i] -= macierzRzadka.pobierzWartosc(i,j) * wynik[j];
             }
-            if (kopiaA.pobierzWartosc(i, i) == 0) {
-                throw new WyjatekMacierz("Macierz A jest osobliwa, nie można rozwiązać układu równań.");
-            }
-            x[i] = (b[i] - sum) / kopiaA.pobierzWartosc(i, i);
+            wynik[i] /= macierzRzadka.pobierzWartosc(i,i);
         }
 
-        return x;
+        return wynik;
     }
 }

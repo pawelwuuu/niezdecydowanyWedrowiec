@@ -2,59 +2,59 @@ package org.niezdecydowanyWedrowiec.algorytmy;
 
 import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GaussZCzesciowymWyborem {
-
-    public static double[] rozwiaz(MacierzRzadka A, double[] b) {
-        int n = A.rozmiarMacierzy;
+    public static double[] rozwiaz(MacierzRzadka macierzRzadka, double[] b) {
+        int n = b.length;
         double[] x = new double[n];
 
-        for (int i = 0; i < n; i++) {
-            // Szukanie maksimum w aktualnej kolumnie
-            double maxEl = Math.abs(A.czyUstawione(i, i) ? A.pobierzWartosc(i, i) : 0);
-            int maxRow = i;
-            for (int k = i + 1; k < n; k++) {
-                if (Math.abs(A.czyUstawione(k, i) ? A.pobierzWartosc(k, i) : 0) > maxEl) {
-                    maxEl = Math.abs(A.czyUstawione(k, i) ? A.pobierzWartosc(k, i) : 0);
-                    maxRow = k;
+        // Eliminacja Gaussa z częściowym wyborem
+        for (int k = 0; k < n - 1; k++) {
+            int maxIndex = k;
+            double maxVal = Math.abs(macierzRzadka.pobierzWartosc(k,k));
+            for (int i = k + 1; i < n; i++) {
+                if (Math.abs(macierzRzadka.pobierzWartosc(i,k)) > maxVal) {
+                    maxVal = Math.abs(macierzRzadka.pobierzWartosc(i,k));
+                    maxIndex = i;
                 }
             }
+            // Zamiana wierszy k i maxIndex w macierzy A oraz w wektorze b
+            ArrayList<Double> temp = macierzRzadka.pobierzWiersz(k);
 
-            // Zamiana maksymalnego wiersza z aktualnym wierszem
-            for (int k = i; k < n; k++) {
-                double tmp = A.czyUstawione(maxRow, k) ? A.pobierzWartosc(maxRow, k) : 0;
-                if (A.czyUstawione(i, k)) {
-                    A.ustawWartosc(maxRow, k, A.pobierzWartosc(i, k));
-                }
-                A.ustawWartosc(i, k, tmp);
+            ArrayList<Double> wierszMaxIndex = macierzRzadka.pobierzWiersz(maxIndex);
+            for (int i = 0; i < wierszMaxIndex.size(); i++) {
+                macierzRzadka.ustawWartosc(k,i, wierszMaxIndex.get(i));
             }
-            double tmp = b[maxRow];
-            b[maxRow] = b[i];
-            b[i] = tmp;
 
-            // Wyzerowanie i-tej kolumny poniżej i-tego wiersza
-            for (int k = i + 1; k < n; k++) {
-                double c = -(A.czyUstawione(k, i) ? A.pobierzWartosc(k, i) : 0) / (A.czyUstawione(i, i) ? A.pobierzWartosc(i, i) : 0);
-                for (int j = i; j < n; j++) {
-                    if (i == j) {
-                        A.ustawWartosc(k, j, 0.0);
-                    } else {
-                        double val = A.czyUstawione(k, j) ? A.pobierzWartosc(k, j) : 0;
-                        A.ustawWartosc(k, j, val + c * (A.czyUstawione(i, j) ? A.pobierzWartosc(i, j) : 0));
-                    }
+            for (int i = 0; i < temp.size(); i++) {
+                macierzRzadka.ustawWartosc(maxIndex,i, temp.get(i));
+            }
+
+            double tempB = b[k];
+            b[k] = b[maxIndex];
+            b[maxIndex] = tempB;
+
+            for (int i = k + 1; i < n; i++) {
+                double m = macierzRzadka.pobierzWartosc(i,k) / macierzRzadka.pobierzWartosc(k,k);
+                for (int j = k; j < n; j++) {
+                    macierzRzadka.ustawWartosc(i,j, macierzRzadka.pobierzWartosc(i,j) - m * macierzRzadka.pobierzWartosc(k,j));
                 }
-                b[k] += c * b[i];
+                b[i] -= m * b[k];
             }
         }
 
-        // Rozwiązanie układu równań dla macierzy górnotrójkątnej
+        // Rozwiązanie układu równań z postaci trójkątnej górnej
         for (int i = n - 1; i >= 0; i--) {
-            x[i] = b[i] / (A.czyUstawione(i, i) ? A.pobierzWartosc(i, i) : 0);
-            for (int k = i - 1; k >= 0; k--) {
-                b[k] -= (A.czyUstawione(k, i) ? A.pobierzWartosc(k, i) : 0) * x[i];
+            x[i] = b[i];
+            for (int j = i + 1; j < n; j++) {
+                x[i] -= macierzRzadka.pobierzWartosc(i,j) * x[j];
+
             }
+            x[i] /= macierzRzadka.pobierzWartosc(i,i);
         }
+
         return x;
     }
 }

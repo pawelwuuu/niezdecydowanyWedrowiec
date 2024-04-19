@@ -107,6 +107,10 @@ public class MacierzRzadka {
             String errStr = String.format("Element w wierszu: %d kolumnie: %d jest poza zakresem macierzy", wiersz, kolumna);
             throw new WyjatekMacierz(errStr);
         }
+
+        if (wartosc == 0)
+            return;
+
         Para para = new Para(wiersz, kolumna);
         macierzRzadka.put(para, wartosc);
     }
