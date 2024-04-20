@@ -37,9 +37,12 @@ public class WersjaPodstawowaSymulacja {
 
         Random random = new Random();
 
+
+
         double sukces = 0;
 
         for(int i = 0; i < iloscSymulacji; i++) {    //Przeprowadza N symulacji wyjścia z parku
+            obecnie = obecnieee;
             if (czyWyjdzie(random)) {
                 sukces++;
             }
@@ -54,17 +57,17 @@ public class WersjaPodstawowaSymulacja {
      */
     public static boolean czyWyjdzie(Random random)
     {
-        for(int i = 0; i < skrzyrzowania[0].length; i++) {  //ustala miejsce startu
-            if(skrzyrzowania[2][i])
-                obecnie = i+1;
-        }
+//        for(int i = 0; i < skrzyrzowania[0].length; i++) {  //ustala miejsce startu
+//            if(skrzyrzowania[2][i])
+//                obecnie = i+1;
+//        }
 
-        do {
+        while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1])) {
             int i = wyburDrogi(random);                                                                 //losuje nową droge
             if(SymulacjaMonteCarlo.symuluj(drogi[obecnie - 1][i - 1], 1, 1) != 0.0) {        //próbuje przez nią przejść
                 obecnie = i;                                                                            //jeżeli przejdzie ustala nowe miejsce wedrowcy
             }
-        }while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1]));
+        }
 
         if(skrzyrzowania[0][obecnie-1])                                         //zwraca true jeżeli wędrowiec wyjdzie oraz false gdy wpadnie do studzianki
             return false;
