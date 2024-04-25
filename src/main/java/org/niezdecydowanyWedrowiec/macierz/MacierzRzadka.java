@@ -13,7 +13,7 @@ public class MacierzRzadka {
     public int rozmiarMacierzy;
 
     /** Mapa przechowująca rzadką macierz. */
-    private final LinkedHashMap<Para, Double> macierzRzadka = new LinkedHashMap<>();
+    public final LinkedHashMap<Para, Double> macierzRzadka = new LinkedHashMap<>();
 
     /**
      * Konstruktor tworzący nową macierz o podanym rozmiarze.
@@ -56,7 +56,7 @@ public class MacierzRzadka {
     /**
      * Klasa wewnętrzna reprezentująca parę (wiersz, kolumna).
      */
-    private class Para {
+    public class Para {
         int wiersz;
         int kolumna;
 
@@ -69,6 +69,14 @@ public class MacierzRzadka {
             this.wiersz = wiersz;
             this.kolumna = kolumna;
         }
+        public int getWiersz() {
+            return wiersz;
+        }
+
+        public int getKolumna() {
+            return kolumna;
+        }
+
 
         @Override
         public boolean equals(Object o) {
