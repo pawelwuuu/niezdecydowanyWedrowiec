@@ -50,6 +50,7 @@ public class WersjaPodstawowaMacierz {
                     if(!(skrzyrzowania[0][j] || skrzyrzowania[1][j]))
                     {
                         if(!(drogi[i][j] == 0)) {
+                            System.out.println("Wersja " + WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j]) + " dla " + drogi[i][j]);
                             macierzRzadka.ustawWartosc(i,j, WersjaUproszczona.obliczPrawdopodobienstwaMiejsc(1, drogi[i][j]).get(drogi[i][j])); //wpisuje szanse przejścia przez alejkę
                             niePusty = true;
                         }

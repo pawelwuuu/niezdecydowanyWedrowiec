@@ -3,6 +3,7 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -63,10 +64,12 @@ public class WersjaPodstawowaSymulacja {
 //        }
 
         while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1])) {
-            int i = wyburDrogi(random);                                                                 //losuje nową droge
-            if(SymulacjaMonteCarlo.symuluj(drogi[obecnie - 1][i - 1], 1, 1) != 0.0) {        //próbuje przez nią przejść
-                obecnie = i;                                                                            //jeżeli przejdzie ustala nowe miejsce wedrowcy
-            }
+//            int i = wyburDrogi(random);                                                                 //losuje nową droge
+            //if(SymulacjaMonteCarlo.symuluj(drogi[obecnie - 1][i - 1]-1, 1, 1) != 0.0) {        //próbuje przez nią przejść
+//                obecnie = i;                                                                             //jeżeli przejdzie ustala nowe miejsce wedrowcy
+//            }
+            obecnie = symulujDroge(random);
+            //return false;
         }
 
         if(skrzyrzowania[0][obecnie-1])                                         //zwraca true jeżeli wędrowiec wyjdzie oraz false gdy wpadnie do studzianki
@@ -80,6 +83,41 @@ public class WersjaPodstawowaSymulacja {
      * @param random Generator liczb losowych.
      * @return Numer skrzyżowania, na które należy się udać.
      */
+    public static int symulujDroge(Random random) {
+        //System.out.println(obecnie + " obecnie ---------");
+        ArrayList<Integer> dlugosci = new ArrayList<>();
+        ArrayList<Integer> nrSkrzyrzowania = new ArrayList<>();
+        for(int i = 0; i < drogi.length; i++)
+        {
+            if(drogi[obecnie-1][i] != 0) {
+                dlugosci.add(drogi[obecnie - 1][i]);
+                nrSkrzyrzowania.add(i);
+            }
+        }
+        int[] wyniki = new int[dlugosci.size()];
+        int wybrana = 0;
+        while(wyniki[wybrana] != dlugosci.get(wybrana)+1)
+        {
+           //System.out.println(wybrana + " " + wyniki[wybrana] + " = " + dlugosci.get(wybrana));
+            if(wyniki[wybrana] == 0)
+            {
+                wybrana = random.nextInt(dlugosci.size());
+                wyniki[wybrana]++;
+            }
+            else
+            {
+                if(random.nextInt(2) == 0)
+                    wyniki[wybrana]++;
+                else
+                    wyniki[wybrana]--;
+            }
+
+        }
+        //System.out.println(wybrana + " " + wyniki[wybrana] + " = " + dlugosci.get(wybrana));
+        return nrSkrzyrzowania.get(wybrana)+1;
+    }
+
+
     public static int wyburDrogi(Random random)
     {
         int i = 0;
