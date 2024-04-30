@@ -1,5 +1,7 @@
 package org.niezdecydowanyWedrowiec;
 
+import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +10,10 @@ import java.io.IOException;
  * Klasa odpowiedzialna za wczytywanie danych z pliku.
  */
 public class WczytaniePliku {
-    public static int[][] drogi;
+    public static MacierzRzadka drogi;
 
     /** Tablica przechowująca właściwości skrzyżowań. */
-    public static boolean[][] skrzyrzowania;
+    public static MacierzRzadka skrzyrzowania;
 
     /** Numer obecnego skrzyżowania. */
     public static int obecnie;
@@ -30,8 +32,8 @@ public class WczytaniePliku {
             int n = Integer.parseInt(wymiary[1]);
 
             // Tworzenie tablic dróg i skrzyżowań
-            drogi = new int[m][m];
-            skrzyrzowania = new boolean[4][m];
+            drogi = new MacierzRzadka(m);
+            skrzyrzowania = new MacierzRzadka(m);
 
             // Wczytywanie ścieżek między skrzyżowaniami
             for (int i = 0; i < n; i++) {
@@ -66,7 +68,7 @@ public class WczytaniePliku {
      * @param j Numer skrzyżowania.
      */
     public static void dodajSkrzyrzowanie(int i, int j) {
-        skrzyrzowania[i][j - 1] = true;
+        skrzyrzowania.ustawWartosc(i,j-1, 1);
     }
 
     /**
@@ -76,7 +78,8 @@ public class WczytaniePliku {
      * @param c Czas przejazdu między skrzyżowaniami.
      */
     public static void dodajDroge(int a, int b, int c) {
-        drogi[a - 1][b - 1] = c;
-        drogi[b - 1][a - 1] = c;
+        drogi.ustawWartosc(a-1, b - 1 , c);
+        drogi.ustawWartosc(b-1, a - 1 , c);
+
     }
 }

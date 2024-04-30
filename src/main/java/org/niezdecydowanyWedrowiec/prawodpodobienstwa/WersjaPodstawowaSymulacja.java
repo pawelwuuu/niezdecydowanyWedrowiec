@@ -2,6 +2,7 @@ package org.niezdecydowanyWedrowiec.prawodpodobienstwa;
 
 import org.niezdecydowanyWedrowiec.Main;
 import org.niezdecydowanyWedrowiec.WczytaniePliku;
+import org.niezdecydowanyWedrowiec.macierz.MacierzRzadka;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,7 +15,7 @@ public class WersjaPodstawowaSymulacja {
     public static int obecnie;
 
     /** Tablica reprezentująca skrzyżowania w parku. */
-    public static boolean[][] skrzyrzowania;    /*
+    public static MacierzRzadka skrzyrzowania;    /*
                                                 0 - czy wejście
                                                 1 - czy studzienka
                                                 2 - miejsce startowe
@@ -22,7 +23,7 @@ public class WersjaPodstawowaSymulacja {
                                                 */
 
     /** Tablica reprezentująca czasy podróży między skrzyżowaniami. */
-    public static int[][] drogi;
+    public static MacierzRzadka drogi;
 
     /**
      * Metoda symulująca podróż po parku.
@@ -63,7 +64,8 @@ public class WersjaPodstawowaSymulacja {
 //                obecnie = i+1;
 //        }
 
-        while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1])) {
+        while(!(skrzyrzowania.pobierzWartosc(0, obecnie-1) == 1.0 || skrzyrzowania.pobierzWartosc(1, obecnie -1) == 1.0)) {
+//        while(!(skrzyrzowania[0][obecnie-1] || skrzyrzowania[1][obecnie-1])) {
 //            int i = wyburDrogi(random);                                                                 //losuje nową droge
             //if(SymulacjaMonteCarlo.symuluj(drogi[obecnie - 1][i - 1]-1, 1, 1) != 0.0) {        //próbuje przez nią przejść
 //                obecnie = i;                                                                             //jeżeli przejdzie ustala nowe miejsce wedrowcy
@@ -72,7 +74,8 @@ public class WersjaPodstawowaSymulacja {
             //return false;
         }
 
-        if(skrzyrzowania[0][obecnie-1])                                         //zwraca true jeżeli wędrowiec wyjdzie oraz false gdy wpadnie do studzianki
+        if(skrzyrzowania.pobierzWartosc(0,obecnie-1) == 1.0)
+//        if(skrzyrzowania[0][obecnie-1])                                         //zwraca true jeżeli wędrowiec wyjdzie oraz false gdy wpadnie do studzianki
             return false;
         else
             return true;
@@ -87,10 +90,10 @@ public class WersjaPodstawowaSymulacja {
         //System.out.println(obecnie + " obecnie ---------");
         ArrayList<Integer> dlugosci = new ArrayList<>();
         ArrayList<Integer> nrSkrzyrzowania = new ArrayList<>();
-        for(int i = 0; i < drogi.length; i++)
+        for(int i = 0; i < drogi.rozmiarMacierzy; i++)
         {
-            if(drogi[obecnie-1][i] != 0) {
-                dlugosci.add(drogi[obecnie - 1][i]);
+            if(drogi.pobierzWartosc(obecnie -1, i) != 0.0) {
+                dlugosci.add((int) drogi.pobierzWartosc(obecnie -1, i));
                 nrSkrzyrzowania.add(i);
             }
         }
@@ -118,20 +121,20 @@ public class WersjaPodstawowaSymulacja {
     }
 
 
-    public static int wyburDrogi(Random random)
-    {
-        int i = 0;
-        boolean gotowe = false;
-        do{
-            i = random.nextInt(skrzyrzowania[0].length * 2);
-            int j = i / 2;
-
-            // System.out.println("i: " + i + " drogi[" + (obecnie-1) + "][" + j + "] = " + drogi[obecnie-1][i/2]);
-
-            if(drogi[obecnie-1][j] != 0)
-                if((i%2==0 || !skrzyrzowania[3][j]))
-                    gotowe = true;
-        }while(!gotowe);       //sprawdza czy istnieje droga z obecnego miesca do skrzyrzowania i
-        return i/2+1;
-    }
+//    public static int wyburDrogi(Random random)
+//    {
+//        int i = 0;
+//        boolean gotowe = false;
+//        do{
+//            i = random.nextInt(skrzyrzowania[0].length * 2);
+//            int j = i / 2;
+//
+//            // System.out.println("i: " + i + " drogi[" + (obecnie-1) + "][" + j + "] = " + drogi[obecnie-1][i/2]);
+//
+//            if(drogi[obecnie-1][j] != 0)
+//                if((i%2==0 || !skrzyrzowania[3][j]))
+//                    gotowe = true;
+//        }while(!gotowe);       //sprawdza czy istnieje droga z obecnego miesca do skrzyrzowania i
+//        return i/2+1;
+//    }
 }
