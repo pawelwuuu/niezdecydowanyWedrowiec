@@ -104,8 +104,13 @@ public class WersjaPodstawowaSymulacja {
            //System.out.println(wybrana + " " + wyniki[wybrana] + " = " + dlugosci.get(wybrana));
             if(wyniki[wybrana] == 0)
             {
-                wybrana = random.nextInt(dlugosci.size());
-                wyniki[wybrana]++;
+                wybrana = random.nextInt(dlugosci.size() * 2);
+                if(skrzyrzowania.pobierzWartosc(3,nrSkrzyrzowania.get(wybrana/2)) == 0.0 || wybrana % 2 == 0) {
+                    wybrana /= 2;
+                    wyniki[wybrana]++;
+                }
+                else
+                    wybrana /= 2;
             }
             else
             {
